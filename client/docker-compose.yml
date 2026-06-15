@@ -1,0 +1,17 @@
+services:
+  tailscale-client:
+    image: tailscale/tailscale:latest
+    container_name: tailscale-client
+    hostname: ethan
+    network_mode: host
+    privileged: true
+    environment:
+      - TS_AUTHKEY=hskey-auth-xxx
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_HOSTNAME=ethan
+      - TS_USERSPACE=false
+      - TS_EXTRA_ARGS=--login-server=https://headscale.example.com --accept-dns=true --accept-routes=true
+    volumes:
+      - ./tailscale-state:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    restart: unless-stopped

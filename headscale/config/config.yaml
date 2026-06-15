@@ -1,0 +1,31 @@
+server_url: https://headscale.example.com
+listen_addr: 0.0.0.0:8080
+metrics_listen_addr: 0.0.0.0:9090
+grpc_listen_addr: 0.0.0.0:50443
+noise:
+  private_key_path: /var/lib/headscale/noise_private.key
+log:
+  level: info
+  format: json
+prefixes:
+  v4: 100.96.0.0/16
+  v6: fd7a:115c:a1e0::/48
+  allocation: sequential
+database:
+  type: sqlite
+  debug: false
+  sqlite:
+    path: /var/lib/headscale/db.sqlite
+derp:
+  paths:
+    - /etc/headscale/derp.yaml
+  auto_update_enabled: false
+dns:
+  magix_dns: true
+  base_domain: ts.internal
+  nameservers:
+    global:
+      - 1.1.1.1
+      - 1.0.0.1
+      - 2606:4700:4700::1111
+      - 2606:4700:4700::1001

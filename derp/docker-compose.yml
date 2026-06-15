@@ -1,0 +1,18 @@
+services:
+  derp:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: headscale-derp
+    network_mode: bridge
+    environment:
+      DERP_DOMAIN: derp.example.com
+      DERP_ADDR: :6060
+      DERP_VERIFY_CLIENTS: "false"
+    ports:
+      - "56060:6060" # derp port, TCP
+      - "3478:3478/udp"  # STUN port, UDP
+    volumes:
+      - ./tailscale:/var/run/tailscale
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
+    restart: unless-stopped

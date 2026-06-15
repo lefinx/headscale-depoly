@@ -1,0 +1,1 @@
+docker  exec headscale-server   headscale preauthkeys create --reusable --expiration 99y --user 1 | tee authkey.txt

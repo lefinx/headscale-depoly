@@ -1,0 +1,13 @@
+.idea/
+
+# Local runtime state
+headscale/data/
+headscale/run/
+client/tailscale-state/
+derp/tailscale/
+
+# Generated secrets
+api_keys.txt
+authkey.txt
+headscale/api_keys.txt
+headscale/authkey.txt

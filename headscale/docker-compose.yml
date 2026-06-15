@@ -1,0 +1,33 @@
+services:
+  headscale:
+    image: headscale/headscale:latest
+    container_name: headscale-server
+    networks:
+      - private
+    volumes:
+      - ./config:/etc/headscale
+      - ./data:/var/lib/headscale
+      - ./run:/var/run/headscale
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
+    ports:
+      - "58318:8080"
+    command: serve
+    restart: unless-stopped
+  webui:
+    image: ghcr.io/gurucomputing/headscale-ui
+    container_name: headscale-ui
+    networks:
+      - private
+    environment:
+      HTTP_PORT: 7070
+    ports:
+      - "58319:7070"
+    volumes:
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
+    restart: unless-stopped
+networks:
+  private:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.200.0/24
